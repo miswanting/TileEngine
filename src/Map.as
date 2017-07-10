@@ -181,7 +181,6 @@ package
 								}
 								answer.pop()
 								answer.reverse()
-								trace("answer:", answer.join("; "))
 								return answer
 							}
 							if (openL[i].x == tmpL[j].x && openL[i].y == tmpL[j].y)

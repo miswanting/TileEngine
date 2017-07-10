@@ -27,14 +27,9 @@ package
 			addChild(map)
 			map.ofX = (stage.nativeWindow.width - map.tileLength) / 2;
 			map.ofY = (stage.nativeWindow.height - map.tileLength) / 2;
-			
-			//map.ofX = 0
-			//map.ofY = 0
-			trace(stage.nativeWindow.width, stage.nativeWindow.height)
 			map.blinkToTarget()
 			man = new Man(map);
 			addChild(man)
-			trace(man.rx, man.ry)
 			var debugMsg:PopupMsg = new PopupMsg();
 			addChild(debugMsg);
 			debugMsg.send("1", 300)
