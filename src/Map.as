@@ -199,10 +199,10 @@ package
 		
 		private function generateMap():void
 		{
-			for (var mx:int = 0; mx < 10; mx++)
+			for (var mx:int = 0; mx < 20; mx++)
 			{
 				var yTiles:Array = new Array();
-				for (var my:int = 0; my < 10; my++)
+				for (var my:int = 0; my < 20; my++)
 				{
 					var tile:Tile = new Tile(tileLength);
 					//if (mx == 0 || mx == 9 || my == 0 || my == 9)
