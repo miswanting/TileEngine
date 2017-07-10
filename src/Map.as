@@ -10,8 +10,8 @@ package
 	 */
 	public class Map extends Sprite
 	{
-		public var blockLength:Number = 50;
-		public var blocks:Array = new Array();
+		public var tileLength:Number = 50;
+		public var tiles:Array = new Array();
 		
 		public var mx:Number, my:Number; // 以Block计
 		public var tx:int, ty:int;
@@ -38,12 +38,12 @@ package
 			generateMap();
 			for (var y:int = 0; y < 9; y++)
 			{
-				blocks[2][y].backgoundeColor = 0xff0000;
-				blocks[2][y].standable = false;
-				blocks[2][y].draw()
-				blocks[7][y + 1].backgoundeColor = 0xff0000;
-				blocks[7][y + 1].standable = false;
-				blocks[7][y + 1].draw()
+				tiles[2][y].backgoundeColor = 0xff0000;
+				tiles[2][y].standable = false;
+				tiles[2][y].draw()
+				tiles[7][y + 1].backgoundeColor = 0xff0000;
+				tiles[7][y + 1].standable = false;
+				tiles[7][y + 1].draw()
 			}
 		}
 		
@@ -51,16 +51,16 @@ package
 		{
 			mx += (tx - mx) / 10;
 			my += (ty - my) / 10;
-			x = ofX - mx * blockLength;
-			y = ofY - my * blockLength;
+			x = ofX - mx * tileLength;
+			y = ofY - my * tileLength;
 		}
 		
 		public function blinkToTarget():void
 		{
 			mx = tx;
 			my = ty;
-			x = ofX - mx * blockLength;
-			y = ofY - my * blockLength;
+			x = ofX - mx * tileLength;
+			y = ofY - my * tileLength;
 		}
 		
 		public function findPath(startP:Array, targetP:Array):Array
@@ -83,11 +83,8 @@ package
 				return newNode;
 			}
 			
-			if (startP == targetP)
-			{
-				return new Array(targetP);
-			}
-			else if (blocks[startP[0]][startP[1]].standable)
+			if (startP == targetP) return new Array(targetP);
+			else if (tiles[startP[0]][startP[1]].standable)
 			{
 				sp = createNode(startP);
 				tp = createNode(targetP);
@@ -107,27 +104,18 @@ package
 					{
 						for (var y:int = -1; y < 2; y++)
 						{
-							if (tmp.x + x >= 0 && tmp.y + y >= 0 && tmp.x + x < blocks.length && tmp.y + y < blocks[0].length)
+							if (tmp.x + x >= 0 && tmp.y + y >= 0 && tmp.x + x < tiles.length && tmp.y + y < tiles[0].length)
 							{
 								var found:Boolean = false;
 								for each (node in closeL)
 								{
-									if (node.x == tmp.x + x && node.y == tmp.y + y)
-									{
-										found = true;
-									}
+									if (node.x == tmp.x + x && node.y == tmp.y + y)found = true;
 								}
 								if (!found)
 								{
 									var newNode:Object = createNode([tmp.x + x, tmp.y + y])
-									if (Math.abs(x) + Math.abs(y) == 1)
-									{
-										newNode.g = tmp.g + normalV;
-									}
-									else
-									{
-										newNode.g = tmp.g + diagonalV;
-									}
+									if (Math.abs(x) + Math.abs(y) == 1)newNode.g = tmp.g + normalV;
+									else newNode.g = tmp.g + diagonalV;
 									newNode.parent = tmp;
 									tmpL.push(newNode);
 								}
@@ -136,7 +124,7 @@ package
 					}
 					for each (node in tmpL.concat())
 					{
-						if (Math.abs(node.x - tmp.x) + Math.abs(node.y - tmp.y) == 1 && !blocks[node.x][node.y].standable)
+						if (Math.abs(node.x - tmp.x) + Math.abs(node.y - tmp.y) == 1 && !tiles[node.x][node.y].standable)
 						{
 							if (Math.abs(node.x - tmp.x) == 1)
 							{
@@ -161,7 +149,7 @@ package
 								}
 							}
 						}
-						else if (!blocks[node.x][node.y].standable)
+						else if (!tiles[node.x][node.y].standable)
 						{
 							for (var i:int = 0; i < tmpL.length; i++)
 							{
@@ -189,10 +177,7 @@ package
 										currentNode = currentNode.parent;
 										answer.push([currentNode.x, currentNode.y])
 									}
-									else
-									{
-										break;
-									}
+									else break;
 								}
 								answer.pop()
 								answer.reverse()
@@ -201,27 +186,15 @@ package
 							}
 							if (openL[i].x == tmpL[j].x && openL[i].y == tmpL[j].y)
 							{
-								if (openL[i].g > tmpL[j].g)
-								{
-									openL.removeAt(i);
-								}
-								else
-								{
-									tmpL.removeAt(j);
-								}
+								if (openL[i].g > tmpL[j].g)openL.removeAt(i);
+								else tmpL.removeAt(j);
 							}
 						}
 					}
-					for each (var item:Object in tmpL)
-					{
-						openL.push(item);
-					}
+					for each (var item:Object in tmpL)openL.push(item);
 				}
 			}
-			else
-			{
-				return new Array(targetP);
-			}
+			else return new Array(targetP);
 			return new Array;
 		}
 		
@@ -229,20 +202,20 @@ package
 		{
 			for (var mx:int = 0; mx < 10; mx++)
 			{
-				var yBlocks:Array = new Array();
+				var yTiles:Array = new Array();
 				for (var my:int = 0; my < 10; my++)
 				{
-					var block:Block = new Block(blockLength);
+					var tile:Tile = new Tile(tileLength);
 					//if (mx == 0 || mx == 9 || my == 0 || my == 9)
 					//{
-					block.mx = mx;
-					block.my = my;
-					block.blinkToTarget();
-					addChild(block);
-					yBlocks.push(block)
+					tile.mx = mx;
+					tile.my = my;
+					tile.blinkToTarget();
+					addChild(tile);
+					yTiles.push(tile)
 						//}
 				}
-				this.blocks.push(yBlocks)
+				this.tiles.push(yTiles)
 			}
 		}
 	

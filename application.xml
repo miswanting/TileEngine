@@ -13,6 +13,8 @@
     <minimizable>true</minimizable>
     <maximizable>true</maximizable>
     <resizable>true</resizable>
+    <x>0</x>
+    <y>0</y>
   </initialWindow>
   <!-- 
 	More options:

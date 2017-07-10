@@ -40,22 +40,16 @@ package
 		{
 			if (tx - rx != 0)
 			{
-				rx += (tx - rx) / Math.abs(tx - rx) / map.blockLength;
-				if ((tx - rx) / Math.abs(tx - rx) < 0.5)
-				{
-					rx = tx;
-				}
+				rx += (tx - rx) / Math.abs(tx - rx) / map.tileLength;
+				if ((tx - rx) / Math.abs(tx - rx) < 0.5)rx = tx;
 			}
 			if (ty - ry != 0)
 			{
-				ry += (ty - ry) / Math.abs(ty - ry) / map.blockLength;
-				if ((ty - ry) / Math.abs(ty - ry) < 0.5)
-				{
-					ry = ty;
-				}
+				ry += (ty - ry) / Math.abs(ty - ry) / map.tileLength;
+				if ((ty - ry) / Math.abs(ty - ry) < 0.5)ry = ty;
 			}
-			x = map.x + rx * map.blockLength;
-			y = map.y + ry * map.blockLength;
+			x = map.x + rx * map.tileLength;
+			y = map.y + ry * map.tileLength;
 			checkInTile();
 		}
 		

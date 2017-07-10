@@ -8,7 +8,7 @@ package
 	 * ...
 	 * @author 何雨航
 	 */
-	public class Block extends Sprite
+	public class Tile extends Sprite
 	{
 		public var length:Number = 0;
 		public var backgoundeColor:uint = 0xffffff;
@@ -21,7 +21,7 @@ package
 		public var tx:Number = 0;
 		public var ty:Number = 0;
 		
-		public function Block(length:Number, backgoundeColor:uint = 0xffffff, border:Number = 1, borderColor:uint = 0x000000):void
+		public function Tile(length:Number, backgoundeColor:uint = 0xffffff, border:Number = 1, borderColor:uint = 0x000000):void
 		{
 			this.length = length;
 			this.backgoundeColor = backgoundeColor;

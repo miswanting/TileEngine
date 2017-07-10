@@ -25,26 +25,32 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			addChild(map)
-			map.ofX = (stage.stageWidth - map.blockLength) / 2;
-			map.ofY = (stage.stageHeight - map.blockLength) / 2;
+			map.ofX = (stage.nativeWindow.width - map.tileLength) / 2;
+			map.ofY = (stage.nativeWindow.height - map.tileLength) / 2;
+			
+			//map.ofX = 0
+			//map.ofY = 0
+			trace(stage.nativeWindow.width, stage.nativeWindow.height)
 			map.blinkToTarget()
 			man = new Man(map);
 			addChild(man)
 			trace(man.rx, man.ry)
 			var debugMsg:PopupMsg = new PopupMsg();
 			addChild(debugMsg);
-			//debugMsg.send("1", 300)
-			//debugMsg.send("2", 200)
-			//debugMsg.send("3", 100)
-			//debugMsg.send("4", 100)
-			//debugMsg.send("5", 200)
-			//debugMsg.send("6", 300)
+			debugMsg.send("1", 300)
+			debugMsg.send("2", 200)
+			debugMsg.send("3", 100)
+			debugMsg.send("4", 100)
+			debugMsg.send("5", 200)
+			debugMsg.send("6", 300)
 			man.path = map.findPath([0, 0], [9, 9]);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, doKey);
 		}
 		
 		private function loop(e:Event):void
 		{
+			map.ofX = (stage.nativeWindow.width - map.tileLength) / 2;
+			map.ofY = (stage.nativeWindow.height - map.tileLength) / 2;
 			map.tx = int(man.rx + 0.5);
 			map.ty = int(man.ry + 0.5);
 		}
