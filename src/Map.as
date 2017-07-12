@@ -18,8 +18,8 @@ package
 		public var ofX:Number, ofY:Number;
 		
 		public var mapWidth:Number, mapHeight:Number;
-		public var tileXLength:int = 25;
-		public var tileYLength:int = 10;
+		public var tileXLength:int = 26;
+		public var tileYLength:int = 14;
 		
 		public var diagonalMove:Boolean = true;
 		
@@ -83,7 +83,6 @@ package
 		
 		public function findPath(startP:Array, targetP:Array):Array // 寻路核心
 		{
-			trace(startP.join("x"), targetP.join("x"));
 			// 检测起点合法性。
 			if (!tiles[startP[0]][startP[1]].standable)
 			{
@@ -131,15 +130,11 @@ package
 			while (openList.length != 0)
 			{
 				// 将OL中F值最小的节点设为当前节点。
-				//for each (node in openList) trace("前", node.x, node.y)
 				openList.sortOn("f", Array.NUMERIC); // 将OpenList中的各项按照F值从小到大的顺序排序。
 				var currentNode:Object = openList.shift() // 拿出OpenList中的F值最小的那一个节点。
-				//for each (node in openList) trace("后", node.x, node.y)
 				
 				// 将当前结点放入CloseList中。
 				closeList.push(currentNode)
-				
-				trace("当前：", currentNode.x, currentNode.y);
 				
 				// 获取当前节点的合格的四方索引。
 				candidateList = new Array;
@@ -154,10 +149,8 @@ package
 						{
 							indexQualified = false;
 						}
-						//trace("检查", tmpX, tmpY)
 						for each (node in closeList)
 						{
-							//trace("关闭", node.x, node.y)
 							if (node.x == tmpX && node.y == tmpY) indexQualified = false; // 排除已关闭的节点。
 						}
 						if (tmpX < 0 || tmpY < 0 || tmpX >= tiles.length || tmpY >= tiles[0].length) indexQualified = false; // 排除地图外的节点。
@@ -177,20 +170,14 @@ package
 							if (Math.abs(x) + Math.abs(y) == 1) newNode.g = currentNode.g + straightWeight;
 							else newNode.g = currentNode.g + obliqueWeight;
 							newNode.f = newNode.g + newNode.h;
-							//trace("合格：", tmpX, tmpY, newNode.f, newNode.g, newNode.h);
 							candidateList.push(newNode)
 							
 						}
 					}
 				}
-				for each (node in candidateList)
-				{
-					trace("二", node.x, node.y)
-				}
 				// 与OpenList进行互动。
 				for each (var node:Object in candidateList)
 				{
-					//trace("take",node.x,node.y)
 					var found:Boolean = false;
 					for (var i:int = 0; i < openList.length; i++)
 					{
@@ -200,7 +187,6 @@ package
 							if (node.g < openList[i].g)
 							{
 								openList.removeAt(i);
-								//trace("加1", node.x, node.y)
 								openList.push(node);
 								break;
 							}
@@ -208,8 +194,6 @@ package
 					}
 					if (!found)
 					{
-						
-						//trace("加2", node.x, node.y)
 						openList.push(node);
 					}
 				}
@@ -217,7 +201,6 @@ package
 				// 检查OpenList中是否有目标格，有则输出。
 				for each (node in openList)
 				{
-					//trace("互动：", node.x, node.y, node.f, node.g, node.h);
 					if (tp.x == node.x && tp.y == node.y)
 					{
 						var answer:Array = new Array;
