@@ -22,9 +22,11 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
-			stage.nativeWindow.width = 1600;
-			stage.nativeWindow.height = 900;
-			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE
+			stage.nativeWindow.x = 0;
+			stage.nativeWindow.y = 0;
+			stage.nativeWindow.width = 1366;
+			stage.nativeWindow.height = 768;
+			//stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE
 			// entry point
 			graphics.beginFill(0x777777);
 			graphics.drawRect(0, 0, stage.nativeWindow.width, stage.nativeWindow.height);
