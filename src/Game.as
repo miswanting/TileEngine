@@ -28,9 +28,8 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			addChild(map)
-			map.ofX = (stage.nativeWindow.width - map.mapWidth) / 2;
-			map.ofY = (stage.nativeWindow.height - map.mapHeight) / 2;
-			trace(map.width, map.height);
+			map.ofX = (stage.stageWidth - map.mapWidth) / 2;
+			map.ofY = (stage.stageHeight - map.mapHeight) / 2;
 			map.blinkToTarget()
 			man = new Man(map);
 			addChild(man)
