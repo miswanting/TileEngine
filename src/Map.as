@@ -18,8 +18,8 @@ package
 		public var ofX:Number, ofY:Number;
 		
 		public var mapWidth:Number, mapHeight:Number;
-		public var tileXLength:int = 35;
-		public var tileYLength:int = 20;
+		public var tileXLength:int = 25;
+		public var tileYLength:int = 10;
 		
 		public var diagonalMove:Boolean = true;
 		
