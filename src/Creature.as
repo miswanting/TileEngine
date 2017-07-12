@@ -54,7 +54,7 @@ package
 			// 移动效率计算
 			if (Math.pow(tx * map.tileLength - rx, 2) + Math.pow(ty * map.tileLength - ry, 2) < Math.pow(map.tileLength / 3, 2))
 			{
-				moveEfficiency = Math.pow(tx * map.tileLength - rx, 2) + Math.pow(ty * map.tileLength - ry, 2) / Math.pow(map.tileLength / 3, 2) ;
+				moveEfficiency = Math.pow(tx * map.tileLength - rx, 2) + Math.pow(ty * map.tileLength - ry, 2) / Math.pow(map.tileLength / 3, 2) /2;
 			}
 			else
 			{

@@ -26,6 +26,8 @@ package
 			stage.nativeWindow.height = 900;
 			stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE
 			// entry point
+			graphics.beginFill(0x777777);
+			graphics.drawRect(0, 0, stage.nativeWindow.width, stage.nativeWindow.height);
 			var game:Game = new Game();
 			addChild(game);
 			//var net:Net = new Net();

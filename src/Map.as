@@ -17,6 +17,10 @@ package
 		public var tx:int, ty:int;
 		public var ofX:Number, ofY:Number;
 		
+		public var mapWidth:Number, mapHeight:Number;
+		public var tileXLength:int = 35;
+		public var tileYLength:int = 20;
+		
 		public var diagonalMove:Boolean = true;
 		
 		public function Map()
@@ -36,15 +40,15 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			generateMap();
-			for (var y:int = 0; y < 9; y++)
-			{
-				tiles[2][y].backgoundeColor = 0xff0000;
-				tiles[2][y].standable = false;
-				tiles[2][y].draw()
-				tiles[7][y + 1].backgoundeColor = 0xff0000;
-				tiles[7][y + 1].standable = false;
-				tiles[7][y + 1].draw()
-			}
+			//for (var y:int = 0; y < 9; y++)
+			//{
+			//tiles[2][y].backgoundeColor = 0xff0000;
+			//tiles[2][y].standable = false;
+			//tiles[2][y].draw();
+			//tiles[7][y + 1].backgoundeColor = 0xff0000;
+			//tiles[7][y + 1].standable = false;
+			//tiles[7][y + 1].draw();
+			//}
 		}
 		
 		private function loop(e:Event):void
@@ -62,6 +66,21 @@ package
 			x = ofX - mx * tileLength;
 			y = ofY - my * tileLength;
 		}
+		
+		public function doLeftClick(mouse:Array):void
+		{
+			var mouseOnTileX:int = int((mouse[0] - x) / tileLength)
+			var mouseOnTileY:int = int((mouse[1] - y) / tileLength)
+			tiles[mouseOnTileX][mouseOnTileY].backgoundeColor = 0xff0000;
+			tiles[mouseOnTileX][mouseOnTileY].standable = false;
+			tiles[mouseOnTileX][mouseOnTileY].draw();
+		}
+		
+		public function getMouseOnTilePos(mouse:Array):Array
+		{
+			return [int((mouse[0] - x) / tileLength), int((mouse[1] - y) / tileLength)];
+		}
+		
 		
 		public function findPath(startP:Array, targetP:Array):Array
 		{
@@ -109,12 +128,12 @@ package
 								var found:Boolean = false;
 								for each (node in closeL)
 								{
-									if (node.x == tmp.x + x && node.y == tmp.y + y)found = true;
+									if (node.x == tmp.x + x && node.y == tmp.y + y) found = true;
 								}
 								if (!found)
 								{
 									var newNode:Object = createNode([tmp.x + x, tmp.y + y])
-									if (Math.abs(x) + Math.abs(y) == 1)newNode.g = tmp.g + normalV;
+									if (Math.abs(x) + Math.abs(y) == 1) newNode.g = tmp.g + normalV;
 									else newNode.g = tmp.g + diagonalV;
 									newNode.parent = tmp;
 									tmpL.push(newNode);
@@ -181,16 +200,22 @@ package
 								}
 								answer.pop()
 								answer.reverse()
-								return answer
+								return answer;
 							}
+							if (openL.length == i)
+							{
+								trace("!");
+								i--;
+							}
+							;
 							if (openL[i].x == tmpL[j].x && openL[i].y == tmpL[j].y)
 							{
-								if (openL[i].g > tmpL[j].g)openL.removeAt(i);
+								if (openL[i].g > tmpL[j].g) openL.removeAt(i);
 								else tmpL.removeAt(j);
 							}
 						}
 					}
-					for each (var item:Object in tmpL)openL.push(item);
+					for each (var item:Object in tmpL) openL.push(item);
 				}
 			}
 			else return new Array(targetP);
@@ -199,10 +224,10 @@ package
 		
 		private function generateMap():void
 		{
-			for (var mx:int = 0; mx < 20; mx++)
+			for (var mx:int = 0; mx < tileXLength; mx++)
 			{
 				var yTiles:Array = new Array();
-				for (var my:int = 0; my < 20; my++)
+				for (var my:int = 0; my < tileYLength; my++)
 				{
 					var tile:Tile = new Tile(tileLength);
 					//if (mx == 0 || mx == 9 || my == 0 || my == 9)
@@ -216,6 +241,8 @@ package
 				}
 				this.tiles.push(yTiles)
 			}
+			mapWidth = tileXLength * tileLength;
+			mapHeight = tileYLength * tileLength;
 		}
 	
 	}

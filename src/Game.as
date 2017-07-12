@@ -3,6 +3,7 @@ package
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	
 	/**
 	 * ...
@@ -13,6 +14,8 @@ package
 		public var map:Map = new Map();
 		public var man:Man;
 		public var debugMsg:PopupMsg = new PopupMsg();
+		
+		public var mouse:Array = new Array;
 		
 		public function Game()
 		{
@@ -25,8 +28,9 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			addChild(map)
-			map.ofX = (stage.nativeWindow.width - map.width) / 2;
-			map.ofY = (stage.nativeWindow.height - map.height) / 2;
+			map.ofX = (stage.nativeWindow.width - map.mapWidth) / 2;
+			map.ofY = (stage.nativeWindow.height - map.mapHeight) / 2;
+			trace(map.width, map.height);
 			map.blinkToTarget()
 			man = new Man(map);
 			addChild(man)
@@ -38,8 +42,9 @@ package
 			debugMsg.send("4", 100)
 			debugMsg.send("5", 200)
 			debugMsg.send("6", 300)
-			man.moveto([9, 9]);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, doKey);
+			stage.addEventListener(MouseEvent.CLICK, doLeftClick);
+			stage.addEventListener(MouseEvent.RIGHT_CLICK, doRightClick);
 		}
 		
 		private function loop(e:Event):void
@@ -74,9 +79,28 @@ package
 				man.tx++;
 				map.tx++;
 				break;
+			case 113: 
+				trace("q");
+				man.moveto([map.tileXLength - 1, map.tileYLength - 1]);
+				break;
+			default: 
+				trace(e.charCode);
+				
 			}
 		}
-	
+		
+		private function doLeftClick(e:MouseEvent):void
+		{
+			trace(e.toString());
+			mouse = [e.stageX, e.stageY];
+			map.doLeftClick(mouse);
+		}
+		
+		private function doRightClick(e:MouseEvent):void
+		{
+			trace(e.toString());
+			man.moveto(map.getMouseOnTilePos([e.stageX, e.stageY]));
+		}
 	}
 
 }
