@@ -11,6 +11,8 @@ package
 	{
 		protected var map:Map = new Map;
 		
+		public var mx:int = 0; // 相对于地图的位置（tile）
+		public var my:int = 0;
 		public var rx:Number = 0; // 相对于地图的位置（像素）
 		public var ry:Number = 0;
 		
@@ -30,8 +32,10 @@ package
 		
 		private function loop(e:Event):void
 		{
-			x = map.x + rx;
-			y = map.y + ry;
+			rx = mx * map.tileLength;
+			ry = my * map.tileLength;
+			x = rx;
+			y = ry;
 		}
 		
 		public function drawStructure():void
@@ -50,7 +54,7 @@ package
 			newShape.graphics.drawRect(0, 0, map.tileLength, map.tileLength);
 			addFrame(newShape, "unfinished");
 			
-			gotoAndStopByName("unfinished");
+			gotoAndStopByName("0");
 		}
 	
 	}
