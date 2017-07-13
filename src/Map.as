@@ -106,7 +106,7 @@ package
 			if (!tiles[startP[0]][startP[1]].standable)
 			{
 				trace("[WARN]寻路起点不合法！")
-				return new Array;
+				//return new Array;
 			}
 			
 			// 检测终点合法性。
@@ -249,12 +249,9 @@ package
 				for (var my:int = 0; my < tileYLength; my++)
 				{
 					var tile:Tile = new Tile(tileLength);
-					//if (mx == 0 || mx == 9 || my == 0 || my == 9)
-					//{
 					tile.mx = mx;
 					tile.my = my;
 					tile.blinkToTarget();
-						//}
 					tileLayer.addChild(tile);
 					yTiles.push(tile);
 				}

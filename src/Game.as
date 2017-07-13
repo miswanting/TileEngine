@@ -46,8 +46,6 @@ package
 			debugMsg.send("5", 200)
 			debugMsg.send("6", 300)
 			
-			var test:Structure = new Structure(map);
-			addChild(test);
 		}
 		
 		private function loop(e:Event):void

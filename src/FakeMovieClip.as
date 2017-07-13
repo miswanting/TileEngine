@@ -40,7 +40,6 @@ package
 					break;
 				}
 			}
-		
 		}
 		
 		protected function nextFrame():void
