@@ -109,7 +109,20 @@ package
 		{
 			trace(e.toString());
 			//man.moveto(map.getMouseOnTilePos([e.stageX, e.stageY]));
-			man.build("wall", map.getMouseOnTilePos([e.stageX, e.stageY]));
+			//man.build("wall", map.getMouseOnTilePos([e.stageX, e.stageY]));
+			
+			//var cmd:Object = new Object;
+			//cmd.cmd = "moveto";
+			//cmd.pos = map.getMouseOnTilePos([e.stageX, e.stageY]);
+			//man.mission.push(cmd);
+			//man.doCMD();
+			
+			var cmd:Object = new Object;
+			cmd.cmd = "build";
+			cmd.pos = map.getMouseOnTilePos([e.stageX, e.stageY]);
+			cmd.type = "wall";
+			man.mission.push(cmd);
+			man.doCMD();
 		}
 	}
 
