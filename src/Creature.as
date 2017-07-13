@@ -9,18 +9,13 @@ package
 	 */
 	public class Creature extends Shadow
 	{
-		private var map:Map;
 		
-		// MovieClip模拟
-		private var frames:Array = new Array;
-		public var currentFrame:int = 0;
-		public var currentFrameName:String = "default";
+		//protected var mission:
 		
 		public function Creature(map:Map)
 		{
 			super(map);
 			addEventListener(Event.ADDED_TO_STAGE, init);
-			this.map = map;
 		}
 		
 		private function init(e:Event = null):void
@@ -37,7 +32,7 @@ package
 			
 			if (moveEfficiency == 0)
 			{
-				this.removeChildren();
+				removeChildren();
 				addChild(shadow);
 				addChild(frames[0]);
 			}
@@ -47,7 +42,7 @@ package
 				tmpAngle += 360 / 16;
 				if (tmpAngle > 360) tmpAngle -= 360;
 				else if (tmpAngle < 0) tmpAngle += 360;
-				this.removeChildren();
+				removeChildren();
 				addChild(shadow);
 				addChild(frames[int(tmpAngle * 8 / 360) + 1]);
 			}
@@ -69,7 +64,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(25, 0 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 1(right)
 			var newShape:Shape = new Shape;
@@ -84,7 +79,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(30, 0 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 2(right)
 			var newShape:Shape = new Shape;
@@ -99,7 +94,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(30, 5 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 3(right)
 			var newShape:Shape = new Shape;
@@ -114,7 +109,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(25, 5 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 4(right)
 			var newShape:Shape = new Shape;
@@ -129,7 +124,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(20, 5 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 5(right)
 			var newShape:Shape = new Shape;
@@ -144,7 +139,7 @@ package
 			newShape.graphics.drawTriangles(v);
 			newShape.graphics.beginFill(0x000000);
 			newShape.graphics.drawCircle(20, 0 - map.tileLength / 2, 10);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 6(right)
 			var newShape:Shape = new Shape;
@@ -159,7 +154,7 @@ package
 			v[4] = 50
 			v[5] = 50 - map.tileLength / 2;
 			newShape.graphics.drawTriangles(v);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 7(right)
 			var newShape:Shape = new Shape;
@@ -174,7 +169,7 @@ package
 			v[4] = 50
 			v[5] = 50 - map.tileLength / 2;
 			newShape.graphics.drawTriangles(v);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			// 8(right)
 			var newShape:Shape = new Shape;
@@ -189,7 +184,7 @@ package
 			v[4] = 50
 			v[5] = 50 - map.tileLength / 2;
 			newShape.graphics.drawTriangles(v);
-			frames.push(newShape);
+			addFrame(newShape);
 			
 			addChild(frames[0]);
 		}

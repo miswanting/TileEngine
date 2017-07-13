@@ -8,30 +8,30 @@ package
 	 * ...
 	 * @author 何雨航
 	 */
-	public class Shadow extends Sprite
+	public class Shadow extends FakeMovieClip
 	{
-		private var map:Map;
+		protected var map:Map;
 		
-		public var rx:Number = 0; // 相对于地图的位置（像素）
-		public var ry:Number = 0;
+		protected var rx:Number = 0; // 相对于地图的位置（像素）
+		protected var ry:Number = 0;
 		public var tx:int = 0; // 目标Block
 		public var ty:int = 0;
 		
 		// 行为学
-		public var maxSpeed:Number = 3; // 最高速度。
-		public var moveEfficiency:Number = 0; // 移动效率。
-		public var maxMoveEfficiency:Number = 1; // 移动效率限制。
-		public var faceingangle:Number = 0; // 朝向。右为起点，顺时针角度制。
+		protected var maxSpeed:Number = 3; // 最高速度。
+		protected var moveEfficiency:Number = 0; // 移动效率。
+		protected var maxMoveEfficiency:Number = 1; // 移动效率限制。
+		protected var faceingangle:Number = 0; // 朝向。右为起点，顺时针角度制。
 		
 		// 状态机
-		public var currentOnTile:Array = new Array(0, 0);
-		public var standAccurate:Boolean = true;
-		public var nextTileToGo:Array = new Array(0, 0);
-		public var _path:Array = new Array;
-		public var targetPos:Array = [0, 0];
+		protected var currentOnTile:Array = new Array(0, 0);
+		protected var standAccurate:Boolean = true;
+		protected var nextTileToGo:Array = new Array(0, 0);
+		protected var _path:Array = new Array;
+		protected var targetPos:Array = new Array(0, 0);
 		
 		// 影子
-		public var shadow:Shape = new Shape;
+		protected var shadow:Shape = new Shape;
 		
 		public function Shadow(map:Map)
 		{
@@ -45,13 +45,6 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			drawShadow(1);
-		}
-		
-		public function drawShadow(rate:Number):void
-		{
-			shadow.graphics.beginFill(0x000000)
-			shadow.graphics.drawEllipse((1 - rate) * map.tileLength / 2, (1 - rate / 2) * map.tileLength / 2, map.tileLength * rate, map.tileLength / 2 * rate);
-			addChild(shadow);
 		}
 		
 		private function loop(e:Event):void
@@ -86,6 +79,13 @@ package
 			ry += maxSpeed * moveEfficiency * Math.sin(faceingangle / 180 * Math.PI)
 			x = map.x + rx;
 			y = map.y + ry;
+		}
+		
+		public function drawShadow(rate:Number):void
+		{
+			shadow.graphics.beginFill(0x000000)
+			shadow.graphics.drawEllipse((1 - rate) * map.tileLength / 2, (1 - rate / 2) * map.tileLength / 2, map.tileLength * rate, map.tileLength / 2 * rate);
+			addChild(shadow);
 		}
 		
 		public function moveto(t:Array):void

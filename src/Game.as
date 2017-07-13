@@ -109,7 +109,7 @@ package
 		{
 			trace(e.toString());
 			//man.moveto(map.getMouseOnTilePos([e.stageX, e.stageY]));
-			man.build("wall", [e.stageX, e.stageY]);
+			man.build("wall", map.getMouseOnTilePos([e.stageX, e.stageY]));
 		}
 	}
 

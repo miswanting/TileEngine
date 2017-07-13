@@ -9,7 +9,7 @@ package
 	 */
 	public class Structure extends FakeMovieClip
 	{
-		private var map:Map = new Map;
+		protected var map:Map = new Map;
 		
 		public var rx:Number = 0; // 相对于地图的位置（像素）
 		public var ry:Number = 0;
