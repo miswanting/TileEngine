@@ -24,6 +24,10 @@ package
 		
 		public var diagonalMove:Boolean = true;
 		
+		public var tileLayer:Sprite = new Sprite;
+		public var itemLayer:Sprite = new Sprite;
+		public var creatureLayer:Sprite = new Sprite;
+		
 		public function Map()
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
@@ -41,6 +45,10 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			generateMap();
+			addChild(tileLayer);
+			addChild(itemLayer);
+			addChild(creatureLayer);
+		
 			//for (var y:int = 0; y < 9; y++)
 			//{
 			//tiles[2][y].backgoundeColor = 0xff0000;
@@ -66,6 +74,16 @@ package
 			my = ty;
 			x = ofX - mx * tileLength;
 			y = ofY - my * tileLength;
+		}
+		
+		public function addStructure(pos:Array):void
+		{
+			var newStructure:Structure = new Structure(this);
+			newStructure.mx = pos[0];
+			newStructure.my = pos[1];
+			structures.push(newStructure);
+			tiles[pos[0]][pos[1]].standable = false;
+			itemLayer.addChild(newStructure);
 		}
 		
 		public function doLeftClick(mouse:Array):void
@@ -236,9 +254,9 @@ package
 					tile.mx = mx;
 					tile.my = my;
 					tile.blinkToTarget();
-					addChild(tile);
-					yTiles.push(tile)
 						//}
+					tileLayer.addChild(tile);
+					yTiles.push(tile);
 				}
 				this.tiles.push(yTiles)
 			}
