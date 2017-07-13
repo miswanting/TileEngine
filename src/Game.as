@@ -28,6 +28,7 @@ package
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, doKey);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, doMove);
 			stage.addEventListener(MouseEvent.CLICK, doLeftClick);
 			stage.addEventListener(MouseEvent.RIGHT_CLICK, doRightClick);
 			addChild(map)
@@ -87,7 +88,11 @@ package
 				
 			}
 		}
-		
+		private function doMove(e:MouseEvent):void
+		{
+			//trace(e.toString());
+			mouse = [e.stageX, e.stageY];
+		}
 		private function doLeftClick(e:MouseEvent):void
 		{
 			trace(e.toString());
