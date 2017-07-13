@@ -106,7 +106,8 @@ package
 		private function doRightClick(e:MouseEvent):void
 		{
 			trace(e.toString());
-			man.moveto(map.getMouseOnTilePos([e.stageX, e.stageY]));
+			//man.moveto(map.getMouseOnTilePos([e.stageX, e.stageY]));
+			man.build("wall", [e.stageX, e.stageY]);
 		}
 	}
 
