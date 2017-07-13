@@ -67,7 +67,6 @@ package
 			if (Math.pow(targetPos[0] * map.tileLength - rx, 2) + Math.pow(targetPos[1] * map.tileLength - ry, 2) < Math.pow(map.tileLength, 2))
 			{
 				moveEfficiency = (Math.pow(targetPos[0] * map.tileLength - rx, 2) + Math.pow(targetPos[1] * map.tileLength - ry, 2)) / Math.pow(map.tileLength, 2) + 0.1;
-				trace(moveEfficiency);
 				if (Math.pow(targetPos[0] * map.tileLength - rx, 2) + Math.pow(targetPos[1] * map.tileLength - ry, 2) < Math.pow(maxSpeed * moveEfficiency, 2))
 				{
 					rx = tx * map.tileLength;
@@ -91,8 +90,12 @@ package
 		
 		public function moveto(t:Array):void
 		{
-			path = map.findPath(currentOnTile, t);
-			targetPos = path[path.length - 1];
+			var newPath:Array = map.findPath(currentOnTile, t);
+			if (newPath.length != 0)
+			{
+				targetPos = newPath[newPath.length - 1];
+				path = newPath;
+			}
 		}
 		
 		private function checkInTile():void
