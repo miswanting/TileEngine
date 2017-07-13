@@ -1,5 +1,8 @@
 package
 {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.BitmapDataChannel;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.text.TextField;
@@ -61,14 +64,25 @@ package
 		
 		public function draw():void
 		{
-			this.graphics.beginFill(borderColor)
-			this.graphics.drawRect(0, 0, this.length, this.length);
-			this.graphics.beginFill(backgoundeColor)
-			this.graphics.drawRect(border, border, this.length - 2 * border, this.length - 2 * border);
-			var debugText:TextField = new TextField();
-			debugText.text = this.mx.toString() + 'x' + this.my.toString();
-			debugText.selectable = false;
-			addChild(debugText)
+			//this.graphics.beginFill(borderColor)
+			//this.graphics.drawRect(0, 0, this.length, this.length);
+			//this.graphics.beginFill(backgoundeColor)
+			//this.graphics.drawRect(border, border, this.length - 2 * border, this.length - 2 * border);
+			//var debugText:TextField = new TextField();
+			//debugText.text = this.mx.toString() + 'x' + this.my.toString();
+			//debugText.selectable = false;
+			//addChild(debugText)
+			var bmd:BitmapData = new BitmapData(length, length, false, 0x00ff00);
+			var seed:Number = int(Math.random() * int.MAX_VALUE);
+			var channels:uint = BitmapDataChannel.GREEN;
+			bmd.noise(seed, 0x00, 0xff, channels, false);
+			for (var i:int; i < 500; i++)
+			{
+				bmd.setPixel(int(Math.random() * length), int(Math.random() * length), 0xffff00);
+			}
+			
+			addChild(new Bitmap(bmd))
+			
 			this.cacheAsBitmap = true;
 		}
 	
