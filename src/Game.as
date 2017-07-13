@@ -91,11 +91,13 @@ package
 				
 			}
 		}
+		
 		private function doMove(e:MouseEvent):void
 		{
 			//trace(e.toString());
 			mouse = [e.stageX, e.stageY];
 		}
+		
 		private function doLeftClick(e:MouseEvent):void
 		{
 			trace(e.toString());

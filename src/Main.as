@@ -33,7 +33,6 @@ package
 			var game:Game = new Game();
 			addChild(game);
 			//var net:Net = new Net();
-		
 		}
 		
 		private function loop(e:Event):void

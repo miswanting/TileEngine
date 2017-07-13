@@ -19,8 +19,8 @@ package
 		public function Creature(map:Map)
 		{
 			super(map);
-			this.map = map;
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			this.map = map;
 		}
 		
 		private function init(e:Event = null):void

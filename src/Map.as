@@ -11,7 +11,7 @@ package
 	public class Map extends Sprite
 	{
 		public var tileLength:Number = 50;
-		public var tiles:Array = new Array();
+		public var tiles:Array = new Array;
 		public var structures:Array = new Array;
 		
 		public var mx:Number, my:Number; // 以Block计

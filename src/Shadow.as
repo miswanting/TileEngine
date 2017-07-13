@@ -35,8 +35,8 @@ package
 		
 		public function Shadow(map:Map)
 		{
-			this.map = map;
 			addEventListener(Event.ADDED_TO_STAGE, init);
+			this.map = map;
 		}
 		
 		private function init(e:Event = null):void
