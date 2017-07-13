@@ -18,6 +18,7 @@ package
 		public var ty:int = 0;
 		
 		// 行为学
+		protected var isMoving:Boolean = false;
 		protected var maxSpeed:Number = 3; // 最高速度。
 		protected var moveEfficiency:Number = 0; // 移动效率。
 		protected var maxMoveEfficiency:Number = 1; // 移动效率限制。
@@ -65,6 +66,11 @@ package
 					rx = tx * map.tileLength;
 					ry = ty * map.tileLength;
 					moveEfficiency = 0;
+					if (isMoving)
+					{
+						isMoving = false;
+						dispatchEvent(new CustomEvent(CustomEvent.MOVE_TO_TARGET));
+					}
 				}
 			}
 			else
@@ -95,19 +101,13 @@ package
 			{
 				targetPos = newPath[newPath.length - 1];
 				path = newPath;
+				isMoving = true;
 			}
 		}
 		
 		private function checkInTile():void
 		{
-			//if (Math.abs(tx * map.tileLength - rx) + Math.abs(ty * map.tileLength - ry) < 1)
-			if (Math.pow(tx * map.tileLength - rx, 2) + Math.pow(ty * map.tileLength - ry, 2) < Math.pow(map.tileLength / 4, 2))
-			{
-				//rx = tx * map.tileLength;
-				//ry = ty * map.tileLength;
-				standAccurate = true;
-			}
-			;
+			if (Math.pow(tx * map.tileLength - rx, 2) + Math.pow(ty * map.tileLength - ry, 2) < Math.pow(map.tileLength / 4, 2)) standAccurate = true;
 			// 算出现在的Tile
 			var nowX:int = int((rx + map.tileLength / 2) / map.tileLength);
 			var nowY:int = int((ry + map.tileLength / 2) / map.tileLength);
