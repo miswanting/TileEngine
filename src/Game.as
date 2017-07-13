@@ -27,6 +27,9 @@ package
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 			addEventListener(Event.ENTER_FRAME, loop);
 			// entry point
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, doKey);
+			stage.addEventListener(MouseEvent.CLICK, doLeftClick);
+			stage.addEventListener(MouseEvent.RIGHT_CLICK, doRightClick);
 			addChild(map)
 			map.ofX = (stage.stageWidth - map.mapWidth) / 2;
 			map.ofY = (stage.stageHeight - map.mapHeight) / 2;
@@ -41,9 +44,6 @@ package
 			debugMsg.send("4", 100)
 			debugMsg.send("5", 200)
 			debugMsg.send("6", 300)
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, doKey);
-			stage.addEventListener(MouseEvent.CLICK, doLeftClick);
-			stage.addEventListener(MouseEvent.RIGHT_CLICK, doRightClick);
 		}
 		
 		private function loop(e:Event):void
