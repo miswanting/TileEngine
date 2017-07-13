@@ -10,7 +10,8 @@ package
 	public class Creature extends Shadow
 	{
 		
-		//protected var mission:
+		public var mission:Array = new Array;
+		protected var sub_mission:Array = new Array;
 		
 		public function Creature(map:Map)
 		{
@@ -47,6 +48,63 @@ package
 				addChild(frames[int(tmpAngle * 8 / 360) + 1]);
 			}
 		
+		}
+		
+		public function doCMD():void
+		{
+			var currentMission:Object = this.mission.shift();
+			switch (currentMission.cmd)
+			{
+			case "moveto": 
+				var cmd:Object = new Object;
+				cmd.cmd = "moveto";
+				cmd.pos = currentMission.pos;
+				sub_mission.push(cmd);
+				doSubCMD();
+				break;
+			case "build": 
+				var cmd:Object = new Object;
+				cmd.cmd = "moveto";
+				cmd.pos = currentMission.pos;
+				sub_mission.push(cmd);
+				
+				var cmd:Object = new Object;
+				cmd.cmd = "build";
+				cmd.pos = currentMission.pos;
+				cmd.type = currentMission.type;
+				sub_mission.push(cmd);
+				doSubCMD();
+				break;
+			}
+		}
+		
+		protected function doSubCMD():void
+		{
+			var currentSubMission:Object = this.sub_mission.shift();
+			switch (currentSubMission.cmd)
+			{
+			case "moveto": 
+				addEventListener(CustomEvent.MOVE_TO_TARGET, finish);
+				moveto(currentSubMission.pos);
+				break;
+			case "build": 
+				map.addStructure(currentSubMission.pos);
+				break;
+			}
+		}
+		
+		public function finish(e:Event = null):void
+		{
+			if (sub_mission.length != 0)
+			{
+				doSubCMD();
+			}
+			else if (mission.length != 0)
+			{
+				doCMD();
+			}else{
+				//removeEventListener(
+			}
 		}
 		
 		private function drawCreature():void
