@@ -45,7 +45,11 @@ package
 			debugMsg.send("4", 100)
 			debugMsg.send("5", 200)
 			debugMsg.send("6", 300)
-			
+			//var test:Item = new Item;
+			//test.x = 100
+			//test.y=100
+			//test.drawTree();
+			//addChild(test);
 		}
 		
 		private function loop(e:Event):void

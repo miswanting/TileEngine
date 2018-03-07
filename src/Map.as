@@ -12,7 +12,7 @@ package
 	{
 		public var tileLength:Number = 50;
 		public var tiles:Array = new Array;
-		public var structures:Array = new Array;
+		public var items:Array = new Array;
 		
 		public var mx:Number, my:Number; // 以Block计
 		public var tx:int, ty:int;
@@ -76,16 +76,6 @@ package
 			y = ofY - my * tileLength;
 		}
 		
-		public function addStructure(pos:Array):void
-		{
-			var newStructure:Structure = new Structure(this);
-			newStructure.mx = pos[0];
-			newStructure.my = pos[1];
-			structures.push(newStructure);
-			tiles[pos[0]][pos[1]].standable = false;
-			itemLayer.addChild(newStructure);
-		}
-		
 		public function doLeftClick(mouse:Array):void
 		{
 			var mouseOnTileX:int = int((mouse[0] - x) / tileLength)
@@ -106,7 +96,7 @@ package
 			if (!tiles[startP[0]][startP[1]].standable)
 			{
 				trace("[WARN]寻路起点不合法！")
-				//return new Array;
+					//return new Array;
 			}
 			
 			// 检测终点合法性。
@@ -243,16 +233,20 @@ package
 		
 		private function generateMap():void
 		{
+			generateTiles();
+			generateItems();
+			generateCreatures();
+		}
+		
+		private function generateTiles():void
+		{
+			
 			for (var mx:int = 0; mx < tileXLength; mx++)
 			{
 				var yTiles:Array = new Array();
 				for (var my:int = 0; my < tileYLength; my++)
 				{
-					var tile:Tile = new Tile(tileLength);
-					tile.mx = mx;
-					tile.my = my;
-					tile.blinkToTarget();
-					tileLayer.addChild(tile);
+					var tile:Tile = addTile([mx, my]);
 					yTiles.push(tile);
 				}
 				this.tiles.push(yTiles)
@@ -260,7 +254,36 @@ package
 			mapWidth = tileXLength * tileLength;
 			mapHeight = tileYLength * tileLength;
 		}
-	
+		
+		private function generateItems():void
+		{
+			addItem(Item.TREE, [5, 5]);
+		}
+		
+		private function generateCreatures():void
+		{
+		
+		}
+		
+		public function addTile(pos:Array):Tile
+		{
+			var newTile:Tile = new Tile(tileLength);
+			newTile.mx = pos[0];
+			newTile.my = pos[1];
+			newTile.blinkToTarget();
+			tileLayer.addChild(newTile);
+			return newTile
+		}
+		
+		public function addItem(type:String, pos:Array):Item
+		{
+			var newItem:Item = new Item(this, type);
+			newItem.mx = pos[0];
+			newItem.my = pos[1];
+			items.push(newItem);
+			itemLayer.addChild(newItem);
+			return newItem
+		}
 	}
 
 }

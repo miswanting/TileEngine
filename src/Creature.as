@@ -88,7 +88,7 @@ package
 				moveto(currentSubMission.pos);
 				break;
 			case "build": 
-				map.addStructure(currentSubMission.pos);
+				map.addItem(Item.TREE, currentSubMission.pos);
 				break;
 			}
 		}
@@ -102,7 +102,9 @@ package
 			else if (mission.length != 0)
 			{
 				doCMD();
-			}else{
+			}
+			else
+			{
 				//removeEventListener(
 			}
 		}
