@@ -1,3 +1,3 @@
 @echo off
-python Game.py
+python NewGame.py
 pause
